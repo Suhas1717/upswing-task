@@ -1,0 +1,37 @@
+<p-table [value]="items" stripedRows [tableStyle]="{'min-width': '50rem'}">
+  <ng-template #header>
+    <tr>
+      <th width="10%">Index</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Sold</th>
+      <th>Description</th>
+      <th width="20%">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-item let-rowIndex="rowIndex">
+    <tr>
+      <td>{{rowIndex+1}}</td>
+      <td>{{item.itemName}}</td>
+      <td>{{item.itemPrice}}</td>
+      <td>{{item.stock}}</td>
+      <td>{{item.sold}}</td>
+      <td>{{item.itemDescription}}</td>
+      <td>
+        <i class="pi pi-pencil text-primary cursor px-2" (click)="selectItem(item)"></i>
+        <i class="pi pi-times text-danger cursor px-2" (click)="removeConfirmation(item.id)"></i>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+<p-dialog [(visible)]="isDialogVisible" [modal]="true" [style]="{ width: '25rem' }">
+  <span class="text-surface-500 dark:text-surface-400 block py-2">Are you sure want to delete this item?</span>
+  <ng-template #footer>
+    <p-button label="Cancel" [text]="true" severity="secondary" (click)="isDialogVisible = false" />
+    <p-button label="Delete" [outlined]="true" severity="danger" (click)="isDialogVisible = false" class=""
+      (click)="removeItem(itemID)" />
+  </ng-template>
+</p-dialog>

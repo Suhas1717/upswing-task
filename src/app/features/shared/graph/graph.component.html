@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-between">
+  <div>
+    <p-select [options]="chartTypes" [(ngModel)]="chartType" (ngModelChange)="changeGraphType()" optionLabel="name"
+      placeholder="Select a City" class="w-full" />
+  </div>
+  <div>
+    <p-select [options]="chartDataTypes" [(ngModel)]="chartDataType" (ngModelChange)="changeGraphType()"
+      optionLabel="name" placeholder="Select a City" class="w-full" />
+  </div>
+</div>
+
+@if(showChart){
+<div class="card flex justify-center mt-3">
+  @if(chartType.type === 'bar'){
+  <p-chart type="bar" [data]="chartData" class="w-full md:w-[30rem]" />
+  }@else {
+  <p-chart type="pie" [data]="chartData" class="w-full md:w-[30rem]" />
+  }
+</div>
+}@else{
+<div class="d-flex justify-content-center align-items-center" style="min-height: 30vh;">
+  <h1 class="text-center ">Add items to generate graphs/charts</h1>
+</div>
+}

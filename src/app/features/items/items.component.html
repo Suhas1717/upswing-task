@@ -1,0 +1,127 @@
+<div class="container p-4" [formGroup]="itemsForm">
+  <div class="row">
+    <div class="col-5 py-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="py-2">
+            <label for="id" class="d-block">ID</label>
+
+            <input pInputText id="id" formControlName="id" autocomplete="off" class="py-2" readonly />
+
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="py-2">
+            <label for="itemName" class="d-block">Product Name</label>
+            <input pInputText id="itemName" formControlName="itemName" autocomplete="off" class="py-2" />
+            <ng-container *ngIf="itemsForm.get('itemName')?.touched && itemsForm.get('itemName')?.invalid">
+              <small class="text-danger d-block">
+                Name is required.
+              </small>
+            </ng-container>
+
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="py-2">
+            <label for="itemPrice" class="d-block">Price</label>
+            <input pInputText id="itemPrice" formControlName="itemPrice" autocomplete="off" class="py-2" />
+            <ng-container *ngIf="itemsForm.get('itemPrice')?.touched && itemsForm.get('itemPrice')?.invalid">
+              <small class="text-danger d-block">
+                Item price is required
+              </small>
+            </ng-container>
+            <ng-container *ngIf="itemsForm.get('itemPrice')?.touched && itemsForm.get('itemPrice')?.value <= 0">
+              <small class="text-danger d-block">
+                Item price should be less than 0
+              </small>
+            </ng-container>
+            <ng-container
+              *ngIf="itemsForm.get('itemPrice')?.touched && itemsForm.get('itemPrice')?.hasError('pattern')">
+              <small class="text-danger d-block">
+                Item price should be a valid numbers only
+              </small>
+            </ng-container>
+
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="py-2">
+            <label for="stock" class="d-block">Stock</label>
+            <input pInputText id="stock" formControlName="stock" autocomplete="off" class="py-2" />
+            <ng-container *ngIf="itemsForm.get('stock')?.touched && itemsForm.get('stock')?.invalid">
+              <small class="text-danger d-block">
+                Item price is required
+              </small>
+            </ng-container>
+            <ng-container *ngIf="itemsForm.get('stock')?.touched && itemsForm.get('stock')?.value <= 0">
+              <small class="text-danger d-block">
+                Item price should be less than 0
+              </small>
+            </ng-container>
+            <ng-container *ngIf="itemsForm.get('stock')?.touched && itemsForm.get('stock')?.hasError('pattern')">
+              <small class="text-danger d-block">
+                Item price should be a valid numbers only
+              </small>
+            </ng-container>
+
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="py-2">
+            <label for="sold" class="d-block">Sold</label>
+            <input pInputText id="sold" formControlName="sold" autocomplete="off" class="py-2" />
+            <ng-container *ngIf="itemsForm.get('sold')?.touched && itemsForm.get('sold')?.invalid">
+              <small class="text-danger d-block">
+                Item price is required
+              </small>
+            </ng-container>
+            <ng-container *ngIf="itemsForm.get('sold')?.touched && itemsForm.get('sold')?.value <= 0">
+              <small class="text-danger d-block">
+                Item price should be less than 0
+              </small>
+            </ng-container>
+            <ng-container *ngIf="itemsForm.get('sold')?.touched && itemsForm.get('sold')?.hasError('pattern')">
+              <small class="text-danger d-block">
+                Item price should be a valid numbers only
+              </small>
+            </ng-container>
+
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="py-2">
+            <label for="itemName" class="d-block">Description</label>
+            <textarea pTextarea id="itemDescription" formControlName="itemDescription" rows="3" cols="50"
+              style="resize: none" class="h-full py-2"></textarea>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <p-button label="Save" severity="success" (click)="addNewItem()" />
+      <p-button label="Reset" severity="secondary" (click)="formInit()" class="ps-4" />
+
+    </div>
+
+    <div class="col-7 py-2" style="border: 1px solid gray; padding: 1.5rem;">
+      <app-graph [items]="itemStore.items()"></app-graph>
+    </div>
+  </div>
+
+  <div class="col-12 mt-4">
+    @if(itemStore.items().length > 0) {
+    <h2 class="text-center">Product List</h2>
+    <app-table [items]="itemStore.items()" (selectedItem)="editItem($event)"></app-table>
+    }@else {
+    <div class="d-flex align-items-center justify-content-center" style="min-height: 30vh;">
+      <h1 class="text-center ">No items found</h1>
+    </div>
+    }
+
+  </div>
+</div>
